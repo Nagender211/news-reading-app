@@ -6,9 +6,8 @@ const NavBord = ({ category }) => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        const url = `https://newsapi.org/v2/everything?q=tesla&from=2024-04-18&sortBy=publishedAt&apiKey=87ede0e5518b4bfca6b80a08b2d17c51`;
-
         const fetchData = async () => {
+            const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=87ede0e5518b4bfca6b80a08b2d17c51`;
             try {
                 console.log('Fetching data from:', url);
                 const response = await axios.get(url, {
@@ -28,6 +27,13 @@ const NavBord = ({ category }) => {
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
+                if (error.response) {
+                    console.error('Response error:', error.response.status, error.response.data);
+                } else if (error.request) {
+                    console.error('Request error:', error.request);
+                } else {
+                    console.error('Unexpected error:', error.message);
+                }
             }
         };
 
