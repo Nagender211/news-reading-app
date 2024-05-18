@@ -1,24 +1,37 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import NavItems from './NavItems';
 
 const NavBord = ({ category }) => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        const url = `https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=87ede0e5518b4bfca6b80a08b2d17c51`;
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch articles');
+        const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=87ede0e5518b4bfca6b80a08b2d17c51`;
+
+        const fetchData = async () => {
+            try {
+                console.log('Fetching data from:', url);
+                const response = await axios.get(url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                console.log('Response:', response);
+                if (response.status !== 200) {
+                    throw new Error(`Failed to fetch articles: ${response.status}`);
                 }
-                return response.json();
-            })
-            .then(data => {
+                const data = response.data;
+                console.log('Data received:', data);
                 if (data.articles) {
                     setArticles(data.articles);
                 }
-            })
-            .catch(error => console.log('Error fetching data:', error));
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
     }, [category]);
 
     return (
