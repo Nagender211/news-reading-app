@@ -6,7 +6,7 @@ const NavBord = ({ category }) => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=87ede0e5518b4bfca6b80a08b2d17c51`;
+        const url = `https://newsapi.org/v2/everything?q=tesla&from=2024-04-18&sortBy=publishedAt&apiKey=87ede0e5518b4bfca6b80a08b2d17c51`;
 
         const fetchData = async () => {
             try {
