@@ -5,7 +5,7 @@ const NavBord = ({ category }) => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=87ede0e5518b4bfca6b80a08b2d17c51`;
+        const url = `https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=87ede0e5518b4bfca6b80a08b2d17c51`;
         fetch(url)
             .then(response => {
                 if (!response.ok) {
